@@ -62,15 +62,15 @@ export async function compileFile(
     return errors
   }
 
-  if (
-    descriptor.styles.some((s) => s.lang) ||
-    (descriptor.template && descriptor.template.lang)
-  ) {
-    return [
-      `lang="x" pre-processors for <template> or <style> are currently not ` +
-        `supported.`,
-    ]
-  }
+  //   if (
+  //     descriptor.styles.some((s) => s.lang) ||
+  //     (descriptor.template && descriptor.template.lang)
+  //   ) {
+  //     return [
+  //       `lang="x" pre-processors for <template> or <style> are currently not ` +
+  //         `supported.`,
+  //     ]
+  //   }
 
   const scriptLang =
     (descriptor.script && descriptor.script.lang) ||
@@ -221,8 +221,10 @@ export async function compileFile(
   if (css) {
     compiled.css = css.trim()
   } else {
-    compiled.css = isCE ?  (compiled.css = '/* The component style of the custom element will be compiled into the component object */')
-      : ('/* No <style> tags present */')
+    compiled.css = isCE
+      ? (compiled.css =
+          '/* The component style of the custom element will be compiled into the component object */')
+      : '/* No <style> tags present */'
   }
 
   if (clientCode || ssrCode) {
